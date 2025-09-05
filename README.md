@@ -5,6 +5,8 @@ A full-stack server management application built with Flask (backend) and Vue 3 
 ## Quick Start (Automated Setup)
 
 ### 🚀 One-Command Setup
+
+**macOS/Linux:**
 ```bash
 # For first-time setup (installs everything and starts servers)
 ./dev-setup.sh
@@ -13,18 +15,31 @@ A full-stack server management application built with Flask (backend) and Vue 3 
 ./start-dev.sh
 ```
 
+**Windows:**
+```powershell
+# PowerShell (Recommended - better error handling and output)
+.\dev-setup.ps1    # For first-time setup
+.\start-dev.ps1     # For daily development
+
+# Command Prompt/Batch (Alternative)
+dev-setup.bat       # For first-time setup
+start-dev.bat       # For daily development
+```
+
+> **💡 Windows Users:** PowerShell scripts (`.ps1`) are recommended over batch files (`.bat`) as they provide better error handling, colored output, and more robust process management. If you encounter execution policy issues, run: `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force`
+
 ## Manual Installation & Setup
 
 ### Prerequisites
 - Python 3.9+
-- Node.js 18+
+- Node.js 20.19.0+ or 22.12.0+ (v21 is not supported)
 - npm or yarn
 
 ### Backend Setup
 
 #### Step 1: Navigate to the backend directory
 ```bash
-cd server-dashboard/backend
+cd ./backend
 ```
 
 #### Step 2: Create a Python Virtual Environment
@@ -72,7 +87,7 @@ deactivate
 #### Future Development Sessions
 For future development sessions, remember to activate the virtual environment before starting the server:
 ```bash
-cd server-dashboard/backend
+cd ./backend
 source venv/bin/activate  # On macOS/Linux
 # OR
 venv\Scripts\activate     # On Windows
@@ -82,7 +97,7 @@ python app.py
 ### Frontend Setup
 1. Navigate to the frontend directory:
    ```bash
-   cd server-dashboard/frontend
+   cd ./frontend
    ```
 
 2. Install Node.js dependencies:
