@@ -164,7 +164,19 @@ The challenge here is laid out as a series of tasks. The intent is to spend no m
 
 If you are not able to complete tasks and would like to explain how you would approach them feel free to add a .md file that includes your explanations 
 
-Please clone this repo to your local system (do _not_ fork or PR against this repo) and then create a new repo for it to point at (preferrably public) send us a link to that repo when you are ready to submit your work.
+Please clone this repo to your local system (do _not_ fork or PR against this repo) and then create a new repo for it to point at (preferrably public). The optimal setup would be as follows:
+- `git clone https://github.com/ocrfin/fe_homework.git` 
+- Setup a repo and point the clone you create at that
+   - login with your standard github user and create new public repo with any name you like e.g `my_project_repo`
+   - after cloning as described above cd into the `fe_homework` directory
+   - view your git remotes `git remote -v` 
+   - change the remote to the newly created repo `git remote set-url origin https://github.com/<username>/my_project_repo.git`
+   - verify the change took with another `git remote -v`
+- Push the base application up as a basline branch
+   - `git push -f origin main` // this is a force push to set the new repo to the state of the hw repo
+- create a branch for the work you do and when complete open a PR to that main branch
+
+once complete, send us a link to the PR so we can see what you changed vs the default code
 
 ## Context
 
@@ -174,7 +186,13 @@ You are an engineer working for the latest startup in the infrastructure managem
 
 ### General QA/Bugs
 
-We have noticed via internal QA or heard user reports of potential bugs and/or quality of life improvements that could be made throughout the system. While working through the tasks below, if you see things that are either broken or even just missing or not as you would expect, please feel free to catalog them as a list in a separate MD file. We do not expect all of them to be fixed, but would like to understand what you found/noticed while using the application and working on other tasks. If any items you find are things you see as fixable while doing other work, feel free to do so and leave a summary of what you found in the same MD file while noting an associated update was made.
+We have noticed via internal QA or heard user reports of potential bugs and/or quality of life improvements that could be made throughout the system. While working through the tasks below, if you see things that are 
+
+- broken/potentially broken
+- missing or 
+- not as you would expect 
+
+please feel free to catalog them as a list in the Observations.md file. We do not expect all of them to be fixed, but would like to understand what you observed while using the application and working on other tasks. If any items you find are things you see as fixable while doing other work, feel free to do so and leave a summary of what you found in the same MD file, while noting an associated update was made.
 
 ### fe-101: Server List - Filtering/Sorting Support
 
