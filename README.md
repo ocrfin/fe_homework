@@ -20,10 +20,6 @@ A full-stack server management application built with Flask (backend) and Vue 3 
 # PowerShell (Recommended - better error handling and output)
 .\dev-setup.ps1    # For first-time setup
 .\start-dev.ps1     # For daily development
-
-# Command Prompt/Batch (Alternative)
-dev-setup.bat       # For first-time setup
-start-dev.bat       # For daily development
 ```
 
 > **💡 Windows Users:** PowerShell scripts (`.ps1`) are recommended over batch files (`.bat`) as they provide better error handling, colored output, and more robust process management. If you encounter execution policy issues, run: `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force`
@@ -150,6 +146,9 @@ python app.py
   - Ensure your virtual environment is activated
   - Update pip: `pip install --upgrade pip`
   - Try installing packages individually to identify the problematic one
+
+#### Window script execution
+- if you get an error running the .ps1 scripts you may need to run `Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned -Force` to allow your current user to run scripts
 
 ## Usage
 

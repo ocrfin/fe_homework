@@ -57,7 +57,7 @@ if (-not (Test-Path $BackendDir) -or -not (Test-Path $FrontendDir)) {
     exit 1
 }
 
-Write-Header "🚀 Full-Stack Development Setup"
+Write-Header "Full-Stack Development Setup"
 Write-Host "This script will:"
 Write-Host "1. Check system requirements"
 Write-Host "2. Set up Python virtual environment for backend"
@@ -81,7 +81,7 @@ if (-not $SkipConfirmation) {
 # ==================================================
 # SYSTEM REQUIREMENTS CHECK
 # ==================================================
-Write-Header "🔍 Checking System Requirements"
+Write-Header "Checking System Requirements"
 
 # Check Python
 Write-Step "Checking Python installation..."
@@ -119,7 +119,7 @@ try {
     $nodeVersion = & node --version 2>&1
     if ($LASTEXITCODE -eq 0) {
         Write-Success "Found: Node.js $nodeVersion"
-        
+       
         # Check Node version (should be 18+)
         $nodeMajorVersion = [int]($nodeVersion -replace '^v(\d+).*', '$1')
         if ($nodeMajorVersion -lt 18) {
@@ -152,7 +152,7 @@ try {
 # ==================================================
 # BACKEND SETUP
 # ==================================================
-Write-Header "🐍 Setting up Backend (Python Flask)"
+Write-Header "Setting up Backend (Python Flask)"
 
 Set-Location $BackendDir
 
@@ -196,14 +196,14 @@ if (Test-Path "requirements.txt") {
 # ==================================================
 # FRONTEND SETUP
 # ==================================================
-Write-Header "🌐 Setting up Frontend (Vue.js)"
+Write-Header "Setting up Frontend (Vue.js)"
 
 Set-Location $FrontendDir
 
 # Install Node.js dependencies
 Write-Step "Installing Node.js dependencies..."
 if (Test-Path "package.json") {
-    & npm install
+    cmd /c "npm install"
     if ($LASTEXITCODE -ne 0) {
         Write-Error-Custom "Failed to install Node.js dependencies"
         Read-Host "Press Enter to exit"
@@ -219,7 +219,7 @@ if (Test-Path "package.json") {
 # ==================================================
 # DATABASE INITIALIZATION
 # ==================================================
-Write-Header "🗄️ Initializing Database"
+Write-Header "Initializing Database"
 
 Set-Location $BackendDir
 & ".\venv\Scripts\Activate.ps1"
@@ -244,7 +244,7 @@ Write-Success "Database initialized with sample data"
 # ==================================================
 # START DEVELOPMENT SERVERS
 # ==================================================
-Write-Header "🚀 Starting Development Servers"
+Write-Header "Starting Development Servers"
 
 # Start backend server
 Write-Step "Starting Flask backend server..."
@@ -278,7 +278,7 @@ Set-Location $FrontendDir
 
 $frontendJob = Start-Job -ScriptBlock {
     Set-Location $using:FrontendDir
-    & npm run dev *>&1 | Out-File -FilePath "..\frontend.log" -Encoding UTF8
+    cmd /c "npm run dev" *>&1 | Out-File -FilePath "..\frontend.log" -Encoding UTF8
 }
 
 # Wait for frontend to start
@@ -287,7 +287,7 @@ Start-Sleep -Seconds 5
 # Check if frontend job is running
 if ($frontendJob.State -eq "Running") {
     Write-Success "Frontend server started (Job ID: $($frontendJob.Id))"
-    
+   
     # Try to determine the frontend port from logs
     Start-Sleep -Seconds 2
     $frontendUrl = "http://127.0.0.1:5173"
@@ -311,22 +311,22 @@ if ($frontendJob.State -eq "Running") {
 # ==================================================
 # SUCCESS MESSAGE
 # ==================================================
-Write-Header "🎉 Setup Complete!"
+Write-Header "Setup Complete!"
 
 Write-Host "Both development servers are running!" -ForegroundColor Green
 Write-Host ""
-Write-Host "📱 Frontend: $frontendUrl"
-Write-Host "🔧 Backend:  http://127.0.0.1:5000"
+Write-Host "   Frontend: $frontendUrl"
+Write-Host "   Backend:  http://127.0.0.1:5000"
 Write-Host ""
-Write-Host "👤 Demo Accounts:"
+Write-Host "   Demo Accounts:"
 Write-Host "   Admin: username='admin', password='admin123'"
 Write-Host "   User:  username='demo', password='demo123'"
 Write-Host ""
-Write-Host "📄 Log Files:"
+Write-Host "   Log Files:"
 Write-Host "   Backend: backend.log"
 Write-Host "   Frontend: frontend.log"
 Write-Host ""
-Write-Host "🛠️  Available Commands:"
+Write-Host "   Available Commands:"
 Write-Host "   View backend logs: Get-Content backend.log -Wait"
 Write-Host "   View frontend logs: Get-Content frontend.log -Wait"
 Write-Host "   Stop servers: Press Ctrl+C"
@@ -351,11 +351,11 @@ function Cleanup {
         Stop-Job $frontendJob -ErrorAction SilentlyContinue
         Remove-Job $frontendJob -ErrorAction SilentlyContinue
     }
-    
+   
     # Kill any remaining processes
     Get-Process | Where-Object { $_.ProcessName -eq "python" -and $_.CommandLine -like "*app.py*" } | Stop-Process -Force -ErrorAction SilentlyContinue
     Get-Process | Where-Object { $_.ProcessName -eq "node" -and $_.CommandLine -like "*vite*" } | Stop-Process -Force -ErrorAction SilentlyContinue
-    
+   
     Write-Success "Development servers stopped"
     exit 0
 }

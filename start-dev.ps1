@@ -33,14 +33,14 @@ $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $BackendDir = Join-Path $ScriptDir "backend"
 $FrontendDir = Join-Path $ScriptDir "frontend"
 
-Write-Host "🚀 Starting Development Servers..." -ForegroundColor Blue
+Write-Host "Starting Development Servers..." -ForegroundColor Blue
 Write-Host ""
 
 # Function to cleanup on exit
 function Cleanup {
     Write-Host "`n" -NoNewline
     Write-Warning "Shutting down servers..."
-    
+   
     # Stop background jobs
     if ($script:BackendJob) {
         Stop-Job $script:BackendJob -ErrorAction SilentlyContinue
@@ -50,11 +50,11 @@ function Cleanup {
         Stop-Job $script:FrontendJob -ErrorAction SilentlyContinue
         Remove-Job $script:FrontendJob -ErrorAction SilentlyContinue
     }
-    
+   
     # Kill any remaining processes
     Get-Process -Name "python" -ErrorAction SilentlyContinue | Where-Object { $_.CommandLine -like "*app.py*" } | Stop-Process -Force -ErrorAction SilentlyContinue
     Get-Process -Name "node" -ErrorAction SilentlyContinue | Where-Object { $_.CommandLine -like "*vite*" } | Stop-Process -Force -ErrorAction SilentlyContinue
-    
+   
     Write-Success "Development servers stopped"
     exit 0
 }
@@ -141,15 +141,15 @@ if ($script:FrontendJob.State -eq "Running") {
 }
 
 Write-Host ""
-Write-Host "🎉 Both servers are running!" -ForegroundColor Green
+Write-Host "   Both servers are running!" -ForegroundColor Green
 Write-Host ""
-Write-Host "📱 Frontend: $frontendUrl"
-Write-Host "🔧 Backend:  http://127.0.0.1:5000"
+Write-Host "   Frontend: $frontendUrl"
+Write-Host "   Backend:  http://127.0.0.1:5000"
 Write-Host ""
-Write-Host "👤 Login with: admin/admin123 or demo/demo123"
+Write-Host "   Login with: admin/admin123 or demo/demo123"
 Write-Host ""
-Write-Host "📄 Logs: backend.log, frontend.log"
-Write-Host "🛑 Press Ctrl+C to stop both servers"
+Write-Host "   Logs: backend.log, frontend.log"
+Write-Host "   Press Ctrl+C to stop both servers"
 Write-Host ""
 
 # Wait for user interrupt or job failure
