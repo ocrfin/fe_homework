@@ -112,6 +112,45 @@ python app.py
    
    The frontend will be available at `http://localhost:5173`
 
+## Troubleshooting
+
+### Common Issues
+
+#### Virtual Environment Not Activating
+- **Issue**: The `(venv)` prefix doesn't appear in your terminal
+- **Solution**: Make sure you're in the `backend/` directory and running the correct activation command for your OS
+- **Alternative**: Try using the full path: `source ./venv/bin/activate` (macOS/Linux)
+
+#### "python3: command not found" Error
+- **Issue**: Python 3 is not installed or not in your PATH
+- **Solution**: 
+  - On macOS: Install Python via [python.org](https://python.org) or use `brew install python3`
+  - On Windows: Install Python from [python.org](https://python.org) and ensure "Add to PATH" is checked
+  - Try using `python` instead of `python3`
+
+#### "pip: command not found" Error
+- **Issue**: pip is not installed or not accessible
+- **Solution**: 
+  - Try `pip3` instead of `pip`
+  - On some systems, use `python -m pip` or `python3 -m pip`
+
+#### Permission Denied Errors
+- **Issue**: Permission errors when installing packages
+- **Solution**: Make sure your virtual environment is activated before installing packages. Never use `sudo` with pip in a virtual environment.
+
+#### Port Already in Use
+- **Issue**: "Address already in use" error when starting the server
+- **Solution**: 
+  - Check if another instance is running: `lsof -i :5000` (macOS/Linux) or `netstat -ano | findstr :5000` (Windows)
+  - Kill the existing process or use a different port
+
+#### Dependencies Not Installing
+- **Issue**: Errors during `pip install -r requirements.txt`
+- **Solution**:
+  - Ensure your virtual environment is activated
+  - Update pip: `pip install --upgrade pip`
+  - Try installing packages individually to identify the problematic one
+
 ## Usage
 
 ### Demo Accounts
